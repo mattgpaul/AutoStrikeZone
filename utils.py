@@ -52,9 +52,16 @@ def CreateFeatureColumns(df, features):
 
 
 
-def PlotDecisionBoundary(clf, X, y):
+def PlotDecisionBoundary(clf, X, y, label_map=None):
     plots = []
-    for label in y.unique():
+    colormap = ['green','blue','red']
+    colorscale = list(zip(y.unique(), colormap))
+
+    if label_map != None:
+        map = {key:value for key, value in enumerate(label_map)}
+        y = y.map(map)
+
+    for i, label in enumerate(y.unique()):
         xplot = X[X.columns[0]][y == label]
         yplot = X[X.columns[1]][y == label]
 
@@ -62,7 +69,8 @@ def PlotDecisionBoundary(clf, X, y):
             x=xplot,
             y=yplot,
             mode='markers',
-            name=str(label)
+            name=str(label),
+            marker_color=colormap[i]
         )
         plots.append(trace)
 
@@ -79,16 +87,20 @@ def PlotDecisionBoundary(clf, X, y):
         x=feature_x, 
         y=feature_y, 
         z=np.reshape(zz,(xx.shape[0],-1)),
-        contours_coloring='lines',
+        showlegend=False,
+        showscale=False,
         line_width=3,
         hoverinfo='skip',
-        contours=dict(
-            start=y.min(),
-            end=y.max(),
-            size=len(y.unique())
-        )
+        colorscale=colorscale,
+        opacity=0.25,
+        ncontours=len(y.unique())
     ))
 
-    layout = go.Layout(template='plotly_dark',title='Decision Boundary')
+    layout = go.Layout(
+        template='plotly_dark',
+        title='Decision Boundary',
+        width=700,
+        height=700
+        )
     fig = go.Figure(data=plots, layout=layout)
     return fig
