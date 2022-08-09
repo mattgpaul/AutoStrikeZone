@@ -19,6 +19,8 @@ import numpy as np
 import datetime as dt
 import seaborn as sns
 import plotly.graph_objects as go
+import plotly.io as pio
+pio.renderers.default='notebook'
 
 
 #import matplotlib so that we can use dark background for seaborn
