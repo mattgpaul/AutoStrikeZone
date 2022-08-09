@@ -1,6 +1,3 @@
-# AutoStrikeZone
-Model to determine strike zone for MLB players
-
 # Introduction
 
 Currently, the MLB uses human umpires to determine ball/strike calls at home plate for each pitch in a baseball game. While it has been the standard since the sport's inception, there are some that believe an update is needed to the game that automates this process, primarily for the purpose of accuracy. A machine with sensors (photogrammetry, videography, radar, lidar) can much better detect the exact location of a baseball as it crosses home plate than the human eye can, regardless of hours of training a person to perform this action.
